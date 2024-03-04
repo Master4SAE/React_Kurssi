@@ -1,8 +1,11 @@
+import {useState} from 'react';
 import {MediaItem} from '../types/DBTypes';
+import MediaRow from './MediaRow';
+import SingleView from './SingleView';
 
-import MediaRow from "./MediaRow"
-
-const mediaArray: MediaItem[] = [
+const Home = () => {
+  const [selectedItem, setSelectedItem] = useState<MediaItem | undefined>();
+  const mediaArray: MediaItem[] = [
     {
       media_id: 8,
       user_id: 5,
@@ -37,13 +40,16 @@ const mediaArray: MediaItem[] = [
       description: 'Butterflies fly around the bunny.',
       created_at: '2024-01-07T20:48:13.000Z',
     },
-];
+  ];
+  //console.log(mediaArray);
 
-const Home = () => {
-    return (
-      <>
-        <h2>My Media</h2>
-        <table>
+  return (
+    <>
+      {selectedItem && (
+        <SingleView item={selectedItem} setSelectedItem={setSelectedItem} />
+      )}
+      <h2>My Media</h2>
+      <table>
         <thead>
           <tr>
             <th>Thumbnail</th>
@@ -55,12 +61,17 @@ const Home = () => {
           </tr>
         </thead>
         <tbody>
-  {mediaArray.map((item) => (
-    <MediaRow key={item.media_id} item={item} />
-  ))}
-</tbody>
+          {mediaArray.map((item) => (
+            <MediaRow
+              key={item.media_id}
+              item={item}
+              setSelectedItem={setSelectedItem}
+            />
+          ))}
+        </tbody>
       </table>
-      </>
-    );
-  };
-  export default Home;
+    </>
+  );
+};
+
+export default Home;
