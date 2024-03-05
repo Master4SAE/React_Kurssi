@@ -4,7 +4,6 @@ import {MediaItem} from "../types/DBTypes";
 const Single = () => {
   const {state} = useLocation();
   const navigate: NavigateFunction = useNavigate();
-  //console.log('single state', state);
   const item: MediaItem = state;
 
   return (
